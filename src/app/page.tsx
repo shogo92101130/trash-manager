@@ -153,7 +153,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-green-500 border-b border-green-600 sticky top-0 z-40">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
           <Trash2 className="h-5 w-5 text-blue-500 shrink-0" />
           <h1 className="text-base font-bold text-gray-900">ゴミ出し管理</h1>
