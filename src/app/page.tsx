@@ -151,34 +151,36 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
-          <Trash2 className="h-5 w-5 text-blue-500 shrink-0" />
-          <h1 className="text-base font-bold text-gray-900">ゴミ出し管理</h1>
+      <header className="sticky top-0 z-40" style={{ background: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)' }}>
+        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center">
+              <Trash2 className="h-4 w-4 text-white" />
+            </div>
+            <h1 className="text-base font-bold text-white">ゴミ出し管理</h1>
+          </div>
         </div>
-      </header>
 
-      {/* Tab bar */}
-      <div className="bg-white border-b border-gray-200 sticky top-14 z-40">
-        <div className="max-w-2xl mx-auto px-4 flex">
+        {/* Tab bar inside header */}
+        <div className="max-w-2xl mx-auto px-4 flex border-t border-white/10">
           {TABS.map(({ id, label, Icon }) => (
             <button
               key={id}
               onClick={() => setActiveTab(id)}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-3 text-xs font-semibold border-b-2 transition-colors ${
+              className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-semibold border-b-2 transition-colors ${
                 activeTab === id
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-400 hover:text-gray-600'
+                  ? 'border-white text-white'
+                  : 'border-transparent text-white/50 hover:text-white/80'
               }`}
             >
               <Icon className="h-4 w-4" />
-              <span className="hidden sm:inline">{label}</span>
+              <span>{label}</span>
             </button>
           ))}
         </div>
-      </div>
+      </header>
 
       {/* Content */}
       <main className="max-w-2xl mx-auto px-4 py-5 pb-10">

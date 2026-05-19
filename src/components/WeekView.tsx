@@ -16,78 +16,55 @@ export function WeekView({ trashItems, tags }: WeekViewProps) {
     return d;
   });
 
-  const getTag = (id: string) => tags.find(t => t.id === id);
-
   return (
     <div>
-      <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3">
+      <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 px-1">
         今週のスケジュール
-      </h2>
-      <div className="space-y-2">
+      </p>
+      <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 snap-x snap-mandatory">
         {days.map((date, idx) => {
           const dow = date.getDay() as DayOfWeek;
           const items = trashItems.filter(item => item.dayOfWeek === dow);
           const isToday = idx === 0;
           const isSun = dow === 0;
           const isSat = dow === 6;
-          const dayColor = isSun ? '#ef4444' : isSat ? '#3b82f6' : '#374151';
 
           return (
             <div
               key={date.toDateString()}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl border transition-colors ${
+              className={`shrink-0 snap-start flex flex-col items-center rounded-2xl p-3 min-w-[72px] transition-all ${
                 isToday
-                  ? 'border-blue-200 bg-blue-50'
-                  : 'border-gray-100 bg-white'
+                  ? 'bg-blue-500 shadow-lg shadow-blue-200'
+                  : 'bg-white border border-gray-100'
               }`}
             >
-              {/* Date column */}
-              <div className="w-12 shrink-0 text-center">
-                <div className="text-xs text-gray-400 font-medium">
-                  {date.getMonth() + 1}/{date.getDate()}
-                </div>
-                <div className="text-sm font-extrabold" style={{ color: dayColor }}>
-                  {DAY_LABELS[dow]}
-                </div>
-              </div>
+              <span className={`text-xs font-bold mb-1 ${
+                isToday ? 'text-blue-100' : isSun ? 'text-red-400' : isSat ? 'text-blue-400' : 'text-gray-400'
+              }`}>
+                {DAY_LABELS[dow]}
+              </span>
+              <span className={`text-lg font-extrabold mb-2 ${isToday ? 'text-white' : 'text-gray-800'}`}>
+                {date.getDate()}
+              </span>
 
-              {/* Divider */}
-              <div className="w-px h-8 bg-gray-200 shrink-0" />
-
-              {/* Items */}
-              <div className="flex flex-wrap gap-1.5 flex-1 min-w-0">
+              <div className="flex flex-col gap-1 w-full">
                 {items.length > 0 ? (
-                  items.map(item => {
-                    const itemTags = item.tagIds.map(id => getTag(id)).filter(Boolean) as Tag[];
-                    return (
-                      <div
-                        key={item.id}
-                        className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-white text-xs font-bold"
-                        style={{ backgroundColor: item.color }}
-                        title={
-                          [item.name, item.memo, ...itemTags.map(t => t.name)]
-                            .filter(Boolean)
-                            .join(' / ')
-                        }
-                      >
+                  items.map(item => (
+                    <div
+                      key={item.id}
+                      className="w-full px-1.5 py-1 rounded-lg text-white text-center"
+                      style={{ backgroundColor: isToday ? 'rgba(255,255,255,0.25)' : item.color }}
+                      title={item.name}
+                    >
+                      <span className="text-xs font-bold leading-none block truncate">
                         {item.name}
-                        {itemTags.length > 0 && (
-                          <span className="opacity-70">
-                            {itemTags.map(t => `#${t.name}`).join(' ')}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })
+                      </span>
+                    </div>
+                  ))
                 ) : (
-                  <span className="text-xs text-gray-300 italic">なし</span>
+                  <div className={`w-full h-1 rounded-full mx-auto ${isToday ? 'bg-white/20' : 'bg-gray-100'}`} />
                 )}
               </div>
-
-              {/* Today indicator */}
-              {isToday && (
-                <span className="text-xs font-bold text-blue-500 shrink-0">今日</span>
-              )}
             </div>
           );
         })}
