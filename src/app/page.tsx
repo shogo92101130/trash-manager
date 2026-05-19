@@ -153,7 +153,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
-      <header className="sticky top-0 z-40" style={{ background: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)' }}>
+      <header className="sticky top-0 z-40" style={{ background: 'linear-gradient(135deg, #4c1d95 0%, #8b5cf6 100%)' }}>
         <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center">
